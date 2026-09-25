@@ -1,0 +1,6 @@
+[project]
+name = "Lotus Backend"
+version = "0.1.0"
+description = "Plants management app"
+requires-python = ">=3.13"
+dependencies = []
