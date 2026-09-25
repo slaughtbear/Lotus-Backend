@@ -1,6 +1,10 @@
 [project]
-name = "Lotus Backend"
+name = "lotus-backend"
 version = "0.1.0"
 description = "Plants management app"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "fastapi>=0.141.1",
+    "fastapi-cli>=0.0.32",
+    "uvicorn>=0.53.0",
+]
