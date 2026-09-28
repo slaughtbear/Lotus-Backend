@@ -1,0 +1,39 @@
+name: lotus-backend
+
+services:
+  db:
+    image: postgres:18-alpine
+    container_name: lotus-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  app:
+    build: .
+    container_name: lotus-app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+    command: sh -c "alembic upgrade head && exec fastapi run app/main.py --port 8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  db_data:
