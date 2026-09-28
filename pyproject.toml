@@ -4,7 +4,12 @@ version = "0.1.0"
 description = "Plants management app"
 requires-python = ">=3.13"
 dependencies = [
+    "alembic>=1.20.0",
+    "asyncpg>=0.31.0",
     "fastapi>=0.141.1",
     "fastapi-cli>=0.0.32",
+    "greenlet>=3.5.6",
+    "pydantic-settings>=2.15.0",
+    "sqlalchemy>=2.1.1",
     "uvicorn>=0.53.0",
 ]
